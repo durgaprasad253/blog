@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}This post title{% endblock page_title %}
+{% block css_files %}<link rel="stylesheet" href="{% static 'blog/post-details.css' %}">
+{% endblock css_files %}
+{% block body %}
+<section id='summary'>
+<h2>post title</h2>
+<article>
+    <img src="{% static 'blog/images/mountain.jpg' %}" alt="image for this post">
+    <address>by dp</address>
+    <div>
+        last updated on <time>june 4</title>
+    </div>
+</article>
+</section>
+<main>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque laudantium obcaecati qui quae recusandae facilis quam iure neque ex saepe vero inventore, libero velit eligendi minus possimus tempore necessitatibus laboriosam.
+    </p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio, minus exercitationem facere amet placeat et? Eligendi aliquid ipsam expedita similique voluptatum maiores non quisquam id aspernatur error temporibus, in est!</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci sunt expedita aliquid assumenda! Sapiente doloribus voluptatibus assumenda, impedit magnam nobis, expedita sit dicta, repellat incidunt ex accusamus. Voluptates, assumenda iure?</p>
+</main>
+{% endblock body %}
