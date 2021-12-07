@@ -90,7 +90,7 @@
   padding: 1rem;
 }
 
-.post a:hover,
+/* .post a:hover,
 .post a:active {
   transform: scale(1.1);
   background-color: #390281;
@@ -118,4 +118,4 @@
 .post:hover time,
 .post:active time {
   color: white;
-}
+} */
