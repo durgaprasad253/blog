@@ -1,5 +1,45 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}my blog{% endblock title %}
+{% block css_files %}<link rel="stylesheet" href="{% static 'blog/index.css' %}"/>{% endblock css_files %}
 {% block body %}
-<h1>hello</h1>
+<header id="main-navigation">
+    <h1><a href="">DP's Blog</a></h1>
+    <nav >
+        <a href="">All Posts</a>
+    </nav>
+</header>
+
+
+<section id="welcome">
+    <header>
+        <img src="" alt="Durga Prasad-The author of this blog">
+    <h2>Durga Prasad's Blog</h2>
+
+    </header>
+    <p>HI, I am Dp and I love creating website</p>
+</section>
+<section id="latest-posts">
+    <h2>My latest thoughts</h2>
+    <ul>
+        <li>
+            <article class="post">
+            <a href="">
+                <img src="" alt="Mountain Hiking">
+                <div class="post__content">
+                    <h3>Mountain Hiking</h3>
+                    <p>i love Hiking and its all about enjoying the nature and i hope you guys will love it too</p>
+                 </div>
+            </a>   
+             
+            </article>
+        </li>
+    </ul>
+</section>
+<section id="about">
+    <h2>What i do</h2>
+    <p>i love programming and its crazy how it works</p>
+    <p>keep coding and keep learning new techniques</p>
+
+</section>
 {% endblock body %}
