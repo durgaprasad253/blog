@@ -24,14 +24,23 @@ class AllPostsView(ListView):
     ordering=["date"]
 
 class PostDetailView(View):
+    def is_stored_post(self,request,post_id):
+        stored_post=request.session.get("stored_post")
+        if stored_post is not None:
+            is_read_later=post_id in stored_post
+        else:
+            is_read_later=False
+        return is_read_later
     def get(self,request,slug):
         identified_post=Post.objects.get(slug=slug)
+        
         form=CommentsForm()
         return render(request,"blog/post-details.html",{
             "post":identified_post,
             "tags":identified_post.tag.all(),
             "form":form,
-            "comments":identified_post.comments.all().order_by("-id")
+            "comments":identified_post.comments.all().order_by("-id"),
+            "is_read_later":self.is_stored_post(request,identified_post.id)
         })
 
     def post(self,request,slug):
@@ -47,7 +56,8 @@ class PostDetailView(View):
             "post":identified_post,
             "tags":identified_post.tag.all(),
             "form":form,
-            "comments":identified_post.comments.all().order_by("-id")
+            "comments":identified_post.comments.all().order_by("-id"),
+            "is_read_later":self.is_stored_post(request,identified_post.id)
         })
     # template_name="blog/post-details.html"
     # model=Post
@@ -65,3 +75,30 @@ class PostDetailView(View):
 #         "post":identified_post,
 #         "tags":identified_post.tag.all()
 #     })
+
+class ReadLaterView(View):
+    def post(self,request):
+        stored_post=request.session.get("stored_post")
+        post_id=int(request.POST["read_later"])
+        if stored_post==None:
+            stored_post=[]
+        if post_id not in stored_post:
+            stored_post.append(post_id)
+            request.session["stored_post"]=stored_post
+        else:
+            stored_post.remove(post_id)
+            request.session["stored_post"]=stored_post
+        return HttpResponseRedirect("/")
+
+    def get(self,request):
+        stored_posts=request.session.get("stored_post")
+        context={}
+        if(stored_posts==None or len(stored_posts)==0):
+            context["posts"]=None
+            context["has_posts"]=False
+        else:
+            posts=Post.objects.filter(id__in=stored_posts)
+            context["posts"]=posts
+            context["has_posts"]=True
+        return render(request,"blog/read_later.html",context)
+

@@ -18,6 +18,23 @@
     <span class="tags">{{tag.caption}}</span>
     {% endfor %}
 </div>
+{% if is_read_later  %}
+<div id="read_later">
+    <form action="{% url 'read-later' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="read_later" value="{{post.id}}">
+    <button>Remove from Read Later</button>
+</form>
+</div>
+{% else %}
+<div id="read_later">
+    <form action="{% url 'read-later' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="read_later" value="{{post.id}}">
+    <button>Read Later</button>
+</form>
+</div>
+{% endif %}
 <article>
     <img src="{{post.image_name.url}}" alt="{{post.title}}">
     <address>By <a href="mailto:{{post.author.email}}">{{post.author}}</a></address>
